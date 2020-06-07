@@ -1,8 +1,7 @@
 <?php namespace App\Controllers;
 
+use App\Models\UserModel;
 use CodeIgniter\Controller;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
 
 class Login extends Controller
 {
@@ -14,49 +13,44 @@ class Login extends Controller
     protected $validation;
     protected $session;
 
-    function __construct(RequestInterface $request, ResponseInterface $response)
+    protected $userModels;
+
+    public function __construct()
     {
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
+        $this->userModels = new UserModel();
     }
 
-	public function index()
-	{
-        // TODO
-        // Change the view
-		return view('home');
+    public function index()
+    {
+        return view('login');
     }
-    
+
     public function process()
     {
         $data['username'] = $this->request->getPost('username');
         $data['password'] = $this->request->getPost('password');
 
         $this->validation->setRules($this->loginValidationParams);
-        if ($this->validation->run($data))
-        {
-            // TODO
-            // Validate user exists and match the credential
-            if (true)
-            {
+        if ($this->validation->run($data)) {
+            if ($this->userModels->getUserWithUsernameAndPassword($data['username'], $data['password'])) {
                 $this->session->set([
                     'username' => 'blah',
                 ]);
-                
-                return redirect($this->baseUrl);
-            }
-            else
-            {
+
                 // TODO
-                return view('home');
+                // redirect to base url
+                return redirect('/');
+            } else {
+                return view('login', [
+                    'errorMsg' => 'Invalid login, please try again'
+                ]);
             }
-        }
-        else
-        {
-            // TODO
-            // Change the view
-            // with validation error
-            return view('home');
+        } else {
+            return view('login', [
+                'errorField' => $this->validation->getErrors()
+            ]);
         }
     }
 }
