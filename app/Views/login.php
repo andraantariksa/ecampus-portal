@@ -1,38 +1,45 @@
+<?php
+helper('form');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?= view('_partial/head') ?>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <?= view('_partial/navbar') ?>
-
-<!-- Page Content -->
-<div class="container">
-
-    <!-- Jumbotron Header -->
+<div class="container flex-grow-1">
     <header class="jumbotron my-4">
         <h1 class="display-3">Admin Login</h1>
-        <form method="post">
-        <?= ($errorMsg)?$errorMsg:'' ?>
-        <div class="input-group">
-            <input type="text" name="username" class="form-control" placeholder="username"><br />
-            <?= ($errorField)?$errorField['username']:'' ?>
+        <?= form_open() ?>
+        <?= $errorMsg ? '<div class="alert alert-danger" role="alert">' . $errorMsg . '</div>' : '' ?>
+        <div class="form-group">
+            <?= form_label('Username', 'field-username') ?>
+            <?= form_input([
+                'name' => 'username',
+                'class' => 'form-control' . ($errorField['username'] ? ' is-invalid' : ''),
+                'placeholder' => 'Enter username',
+                'id' => 'field-username'
+            ]) ?>
+            <?= $errorField ? '<div class="invalid-feedback">' . $errorField['username'] . '</div>' : '' ?>
         </div>
-        <div class="input-group">
-            <input type="password" name="password" class="form-control" placeholder="password"><br />
-            <?= ($errorField)?$errorField['password']:'' ?>
+        <div class="form-group">
+            <?= form_label('Password', 'field-password') ?>
+            <?= form_password([
+                'name' => 'password',
+                'class' => 'form-control' . ($errorField['password'] ? ' is-invalid' : ''),
+                'placeholder' => 'Enter password',
+                'id' => 'field-password'
+            ]) ?>
+            <?= $errorField ? '<div class="invalid-feedback">' . $errorField['password'] . '</div>' : '' ?>
         </div>
-        <div class="input">
-            <button class="btn btn-primary" type="submit">Login</button>
-        </div>
-        </form>
+        <?= form_button([
+            'class' => 'btn btn-primary',
+            'type' => 'submit'
+        ], 'Login') ?>
+        <?= form_close() ?>
     </header>
-
-
-
 </div>
-<!-- /.container -->
-
 <?= view('_partial/footer') ?>
 <?= view('_partial/body_end') ?>
 </body>

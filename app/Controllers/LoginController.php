@@ -1,42 +1,54 @@
 <?php namespace App\Controllers;
 
+use App\Models\ImplAuthenticationSession;
 use App\Models\UserModel;
 use CodeIgniter\Controller;
 
-class Login extends Controller
+class LoginController extends Controller
 {
     protected $loginValidationParams = [
         'username' => ['label' => 'Username', 'rules' => 'required'],
         'password' => ['label' => 'Password', 'rules' => 'required|min_length[8]']
     ];
 
-    protected $validation;
-    protected $session;
+    protected \CodeIgniter\Validation\Validation $validation;
+    protected ImplAuthenticationSession $authentication;
 
     protected $userModels;
 
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
+        $this->authentication = ImplAuthenticationSession::getInstance();
         $this->userModels = new UserModel();
     }
 
     public function index()
     {
+        if ($this->authentication->isAuthenticated())
+        {
+            return redirect('/');
+        }
+
         return view('login');
     }
 
     public function process()
     {
+        if ($this->authentication->isAuthenticated())
+        {
+            return redirect('/');
+        }
+
         $data['username'] = $this->request->getPost('username');
         $data['password'] = $this->request->getPost('password');
 
         $this->validation->setRules($this->loginValidationParams);
         if ($this->validation->run($data)) {
-            if ($this->userModels->getUserWithUsernameAndPassword($data['username'], $data['password'])) {
-                $this->session->set([
-                    'username' => 'blah',
+            $user = $this->userModels->getUserWithUsernameAndPassword($data['username'], $data['password']);
+            if ($user) {
+                $this->authentication->authenticate([
+                    'id' => $user->id
                 ]);
 
                 // TODO
