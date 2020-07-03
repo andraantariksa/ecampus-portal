@@ -13,6 +13,7 @@
 //
 defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'App');
 defined('SITE_NAME') || define('SITE_NAME', 'eCampus Portal');
+defined('MAIN_SITE_URL') || define('MAIN_SITE_URL', 'https://ecampus.president.ac.id/');
 
 /*
 |--------------------------------------------------------------------------
