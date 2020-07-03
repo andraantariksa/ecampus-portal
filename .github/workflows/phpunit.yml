@@ -1,9 +1,8 @@
 name: PHPUnit
 
 on:
+  push:
   pull_request:
-    branches: 
-      - develop
 
 jobs:
   main:
@@ -11,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        php-versions: ['7.2', '7.3', '7.4']
+        php-versions: ['7.4']
 
     runs-on: ubuntu-latest
 
