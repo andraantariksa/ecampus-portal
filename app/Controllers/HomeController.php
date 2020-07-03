@@ -1,12 +1,12 @@
-<?php namespace App\Controllers;
+<?php
+namespace App\Controllers;
 
-use CodeIgniter\Controller;
-
-class HomeController extends Controller
+class HomeController extends CustomBaseController
 {
+
 	public function index()
 	{
-		return view('home');
+		return $this->view('home');
 	}
 
 	// TODO

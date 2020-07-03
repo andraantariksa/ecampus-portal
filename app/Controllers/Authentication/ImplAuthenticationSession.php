@@ -1,4 +1,5 @@
-<?php namespace App\Models;
+<?php
+namespace App\Controllers\Authentication;
 
 class ImplAuthenticationSession implements IAuthentication
 {
@@ -11,7 +12,7 @@ class ImplAuthenticationSession implements IAuthentication
         $this->session = \Config\Services::session();
     }
 
-    public static function getInstance() : ImplAuthenticationSession
+    public static function getInstance() : self
     {
         if (!self::$instance)
         {

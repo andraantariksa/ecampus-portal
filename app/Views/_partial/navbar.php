@@ -7,8 +7,24 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link active" href="<?= base_url('') ?>">Home <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" href="<?= base_url('news') ?>">News</a>
+            <a class="nav-item nav-link" href="<?= base_url('video-conference') ?>">Video Conference</a>
             <a class="nav-item nav-link" href="<?= base_url('faq') ?>">FAQ</a>
-            <a class="nav-item nav-link" href="<?= base_url('login') ?>">Login</a>
+            <a class="nav-item nav-link" href="<?= base_url('documents') ?>">Documents</a>
+<?php
+            if (!$authentication->isAuthenticated())
+            {
+?>
+                <a class="nav-item nav-link" href="<?= base_url('login') ?>">Login</a>
+<?php
+            }
+            else
+            {
+?>
+                <a class="nav-item nav-link" href="<?= base_url('logout') ?>">Logout</a>
+<?php
+            }
+?>
+            ?>
         </div>
     </div>
 </nav>

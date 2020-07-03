@@ -1,11 +1,11 @@
-<?php namespace App\Controllers;
+<?php
+namespace App\Controllers;
 
 use App\Models\FAQModel;
-use App\Models\UserModel;
-use CodeIgniter\Controller;
 
-class FAQController extends Controller
+class FAQController extends CustomBaseController
 {
+
     protected FAQModel $faq_model;
     protected \Parsedown $parsedown;
 
@@ -13,7 +13,6 @@ class FAQController extends Controller
     {
         $this->faq_model = new FAQModel();
         $this->parsedown = new \Parsedown();
-        $this->umodel = new UserModel();
     }
 
     public function page()
@@ -24,7 +23,7 @@ class FAQController extends Controller
             'faq_pager' => $this->faq_model->pager
         ];
 
-        return view('faq', $data);
+        return $this->view('faq', $data);
     }
 
     public function single($id)
@@ -35,7 +34,7 @@ class FAQController extends Controller
 
         if (!$faq)
         {
-            return view('errors/html/error_404');
+            return $this->errorNotFound();
         }
 
         $data = [
@@ -47,6 +46,7 @@ class FAQController extends Controller
             'updated_at' => $faq->updated_at
         ];
 
-        return view('faq_single', $data);
+        return $this->view('faq_single', $data);
     }
+
 }

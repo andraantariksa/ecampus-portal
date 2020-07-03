@@ -14,9 +14,10 @@ namespace App\Controllers;
  * @package CodeIgniter
  */
 
+use App\Controllers\Authentication\ImplAuthenticationSession;
 use CodeIgniter\Controller;
 
-class BaseController extends Controller
+class CustomBaseController extends Controller
 {
 
 	/**
@@ -28,10 +29,12 @@ class BaseController extends Controller
 	 */
 	protected $helpers = [];
 
+	protected ImplAuthenticationSession $authentication;
+
 	/**
 	 * Constructor.
 	 */
-	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
@@ -41,6 +44,27 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.:
 		// $this->session = \Config\Services::session();
+
+        $this->authentication = ImplAuthenticationSession::getInstance();
 	}
+
+	protected function injectRender(array $data) : array
+    {
+        // Injecting render data to the view renderer
+        $data['authentication'] = $this->authentication;
+        return $data;
+    }
+
+    protected function errorNotFound() : string
+    {
+
+        $this->response->setStatusCode(404);
+        return $this->view('errors/html/error_404');
+    }
+
+	protected function view(string $name, array $data = [], array $options = []) : string
+    {
+        return view($name, $this->injectRender($data), $options);
+    }
 
 }
