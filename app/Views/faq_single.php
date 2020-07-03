@@ -14,7 +14,7 @@
         if ($thumbnail_url) {
             ?>
             <!-- TODO styling -->
-            <img class="card-img-top" alt="<?= esc($question_en) ?> | <?= esc($question_id) ?>">
+            <img class="card-img-top" src="<?= $thumbnail_url ?>" alt="<?= esc($question_en) ?> | <?= esc($question_id) ?>">
             <?php
         }
         ?>

@@ -34,7 +34,6 @@ $routes->get('/', 'HomeController::index');
 
 $routes->get('/faq', 'FAQController::page');
 $routes->get('/faq/(:num)', 'FAQController::single/$1');
-$routes->get('/faq/page/(:num)', 'FAQController::page');
 
 $routes->get('/login', 'LoginController::index');
 $routes->post('/login', 'LoginController::process');

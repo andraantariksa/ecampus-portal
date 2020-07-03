@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 
 use App\Models\FAQModel;
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 
 class FAQController extends Controller
@@ -12,12 +13,14 @@ class FAQController extends Controller
     {
         $this->faq_model = new FAQModel();
         $this->parsedown = new \Parsedown();
+        $this->umodel = new UserModel();
     }
 
-    public function page($page = 0)
+    public function page()
     {
+
         $data = [
-            'faq_list' => $this->faq_model->paginate(5),
+            'faq_list' => $this->faq_model->paginate(6),
             'faq_pager' => $this->faq_model->pager
         ];
 

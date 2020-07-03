@@ -36,20 +36,9 @@ class AddFAQ extends Migration
                 'type' => 'TEXT',
                 'null' => false
             ],
-            'deleted_at' => [
-                'type' => 'TIMESTAMP',
-                'null' => true
-            ],
-            'created_at' => [
-                'type' => 'TIMESTAMP',
-                'null' => false,
-                'created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP'
-            ],
-            'updated_at' => [
-                'type' => 'TIMESTAMP',
-                'null' => false,
-                'updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
-            ],
+            'deleted_at DATETIME',
+            'created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP',
+            'updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('faq');
