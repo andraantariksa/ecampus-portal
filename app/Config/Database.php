@@ -34,8 +34,8 @@ class Database extends \CodeIgniter\Database\Config
 	public $default = [
 		'DSN'      => '',
         'hostname' => '127.0.0.1',
-        'username' => 'wspeople_devel',
-        'password' => 'wspeople_devel',
+        'username' => 'root',
+        'password' => '',
         'database' => 'ecampus_portal',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => 'ecp_',
