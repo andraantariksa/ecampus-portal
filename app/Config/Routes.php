@@ -38,9 +38,10 @@ $routes->get('/faq/(:num)', 'FAQController::single/$1');
 $routes->get('/login', 'LoginController::index');
 $routes->post('/login', 'LoginController::process');
 
-$routes->get('/lecturer-report', 'LecturerReport::index');
+$routes->get('/staff/lecturer-report', 'LecturerReport::index');
 
-$routes->get('/upload-report', 'UploadReport::index');
+$routes->get('/staff/lecturer-report/upload', 'UploadReport::index');
+$routes->post('/staff/lecturer-report/upload', 'UploadReport::upload');
 // TODO
 // $routes->get('/profile/(:alphanum)');
 

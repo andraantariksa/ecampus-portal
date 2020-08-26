@@ -10,21 +10,33 @@
             <a class="nav-item nav-link" href="<?= base_url('video-conference') ?>">Video Conference</a>
             <a class="nav-item nav-link" href="<?= base_url('faq') ?>">FAQ</a>
             <a class="nav-item nav-link" href="<?= base_url('documents') ?>">Documents</a>
-            <a class="nav-item nav-link" href="<?= base_url('lecturer-report') ?>">Lecturer Report</a>
 <?php
-            if (!$authentication->isAuthenticated())
-            {
-?>
-                <a class="nav-item nav-link" href="<?= base_url('login') ?>">Login</a>
-<?php
-            }
-            else
-            {
-?>
-                <a class="nav-item nav-link" href="<?= base_url('upload-report') ?>">Upload Report</a>
-                <a class="nav-item nav-link" href="<?= base_url('logout') ?>">Logout</a>
-<?php
-            }
+if (!$authentication->isAuthenticated()) {
+    // Unauthenticated user parts
+    ?>
+    <a class="nav-item nav-link" href="<?= base_url('login') ?>">Login</a>
+    <?php
+    // End unauthenticated user parts
+} else {
+    // Authenticated user parts
+    ?>
+
+    <?php
+    $isStaff = true;
+    if ($isStaff) {
+        // Staff only parts
+        ?>
+        <a class="nav-item nav-link" href="<?= base_url('staff/lecturer-report') ?>">Lecturer Report</a>
+        <a class="nav-item nav-link" href="<?= base_url('staff/lecturer-report/upload') ?>">Upload Report</a>
+        <?php
+        // End staff only parts
+    }
+    ?>
+    <a class="nav-item nav-link" href="<?= base_url('logout') ?>">Logout</a>
+
+    <?php
+    // End authenticated user parts
+}
 ?>
             ?>
         </div>

@@ -6,5 +6,5 @@ interface IUserRoleCourseReader
 {
     function __construct($resource);
 
-    function next(): ?array;
+    function next();
 }

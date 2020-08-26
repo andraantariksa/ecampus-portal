@@ -79,4 +79,10 @@ class MapUserRoleCourse
     {
         return $this->data;
     }
+
+    // 6. total kehadiran (if teaching >1 and participating >1, kehadiran = 1, else 0
+    static function is_attend(int $teaching_count, int $participation_count): int
+    {
+        return ($teaching_count > 1 && $participation_count > 1) ? 1 : 0;
+    }
 }
