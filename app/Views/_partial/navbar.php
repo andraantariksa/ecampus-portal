@@ -22,11 +22,13 @@ if (!$authentication->isAuthenticated()) {
     ?>
 
     <?php
+    // TODO
+    // Staff logic
     $isStaff = true;
     if ($isStaff) {
         // Staff only parts
         ?>
-        <a class="nav-item nav-link" href="<?= base_url('staff/lecturer-report') ?>">Lecturer Report</a>
+<!--        <a class="nav-item nav-link" href="--><?//= base_url('staff/lecturer-report') ?><!--">Lecturer Report</a>-->
         <a class="nav-item nav-link" href="<?= base_url('staff/lecturer-report/upload') ?>">Upload Report</a>
         <?php
         // End staff only parts
