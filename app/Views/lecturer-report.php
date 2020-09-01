@@ -25,7 +25,7 @@
             <tbody>
 <?php
     $num = 1;
-    foreach ($overview_data as $row)
+    foreach ($list_data as $row)
     {
 ?>
     <tr>

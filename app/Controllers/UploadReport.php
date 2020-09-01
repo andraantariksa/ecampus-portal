@@ -40,7 +40,8 @@ class UploadReport extends CustomBaseController
         }
 
         return $this->view('lecturer-report', [
-            "overview_data" => $user_role_course_mapper->getListData(),
+            'list_data' => $user_role_course_mapper->getListData(),
+            'overview_data' => $user_role_course_mapper->getOverviewData()
         ]);
     }
 

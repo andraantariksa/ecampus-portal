@@ -73,7 +73,7 @@ class MapUserRoleCourse
             "email" => $line_data[$this->email_column_idx],
             "course_name" => $line_data[$this->course_name_column_idx],
             "course_id" => $line_data[$this->course_id_column_idx],
-            "category" => $line_data[$this->category_column_idx],
+            "course_category" => $line_data[$this->category_column_idx],
             "participation_count" => $line_data[$this->participation_count_column_idx],
             "teaching_count" => $line_data[$this->teaching_count_column_idx],
             "is_qualified_activity" => MapUserRoleCourse::isQualifiedActivity(
@@ -87,7 +87,7 @@ class MapUserRoleCourse
     {
         $course_id = $line_data[$this->course_id_column_idx];
 
-        $overview_data[$course_id] = new UserRoleCourse(
+        $this->overview_data[$course_id] = new UserRoleCourse(
             $line_data[$this->course_name_column_idx],
             $line_data[$this->category_column_idx],
         );
@@ -95,17 +95,17 @@ class MapUserRoleCourse
         $name = $line_data[$this->name_column_idx];
         $email = $line_data[$this->email_column_idx];
         $participation_count = $line_data[$this->participation_count_column_idx];
-        $lecturer_idx = $overview_data[$course_id]->get_lecturer_idx($name, $email);
+        $lecturer_idx = $this->overview_data[$course_id]->get_lecturer_idx($name, $email);
 
         // If no lecturer match
         if ($lecturer_idx === null) {
-            $overview_data[$course_id]->add_lecturer($name, $email);
+            $this->overview_data[$course_id]->add_lecturer($name, $email);
         } else {
             // TODO
             // Only participation count
             // New count = current data count + old count
-            $new_count = $participation_count + $overview_data[$course_id]->lecturers[$lecturer_idx]->count;
-            $overview_data[$course_id]->lecturers[$lecturer_idx] = new UserRoleCourseLecturer($name, $email, $new_count);
+            $new_count = $participation_count + $this->overview_data[$course_id]->lecturers[$lecturer_idx]->count;
+            $this->overview_data[$course_id]->lecturers[$lecturer_idx] = new UserRoleCourseLecturer($name, $email, $new_count);
         }
     }
 

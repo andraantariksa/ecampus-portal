@@ -35,6 +35,12 @@ $routes->get('/', 'HomeController::index');
 $routes->get('/faq', 'FAQController::page');
 $routes->get('/faq/(:num)', 'FAQController::single/$1');
 
+$routes->get('/document', 'DocumentController::index');
+$routes->get('/document/new', 'DocumentController::new');
+$routes->post('/document/new', 'DocumentController::create');
+$routes->get('/document/id/(:num)', 'DocumentController::single/$1');
+$routes->get('/document/download/(:num)', 'DocumentController::download/$1');
+
 $routes->get('/login', 'LoginController::index');
 $routes->post('/login', 'LoginController::process');
 
