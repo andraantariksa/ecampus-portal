@@ -34,7 +34,7 @@
         <td><?= $row['email']; ?></td>
         <td><?= $row['course_id']; ?></td>
         <td><?= $row['course_name']; ?></td>
-        <td><?= $row['course_category']; ?></td>
+        <td><?= $row['category']; ?></td>
         <td><?= $row['participation_count']; ?></td>
         <td><?= $row['teaching_count']; ?></td>
         <td><input type="checkbox"  disabled="disabled" <?= $row['is_qualified_activity']? "checked" : ""; ?> /></td>

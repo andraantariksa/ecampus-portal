@@ -42,6 +42,9 @@ $routes->get('/staff/lecturer-report', 'LecturerReport::index');
 
 $routes->get('/staff/lecturer-report/upload', 'UploadReport::index');
 $routes->post('/staff/lecturer-report/upload', 'UploadReport::upload');
+
+$routes->get('/video-conference', 'VideoConference::index');
+$routes->post('/video-conference', 'VideoConference::request');
 // TODO
 // $routes->get('/profile/(:alphanum)');
 
