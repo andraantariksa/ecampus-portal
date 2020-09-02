@@ -9,7 +9,7 @@
             <a class="nav-item nav-link" href="<?= base_url('news') ?>">News</a>
             <a class="nav-item nav-link" href="<?= base_url('video-conference') ?>">Video Conference</a>
             <a class="nav-item nav-link" href="<?= base_url('faq') ?>">FAQ</a>
-            <a class="nav-item nav-link" href="<?= base_url('documents') ?>">Documents</a>
+            <a class="nav-item nav-link" href="<?= base_url('document') ?>">Documents</a>
 <?php
 if (!$authentication->isAuthenticated()) {
     // Unauthenticated user parts
