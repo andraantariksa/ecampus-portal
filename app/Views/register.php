@@ -11,9 +11,19 @@ helper('form');
 <div class="container flex-grow-1 py-5">
     <div class="row justify-content-center">
         <div class="col-sm-5">
-            <h1 class="display-3">Login</h1>
+            <h1 class="display-3">Registration</h1>
             <?= form_open() ?>
             <?= isset($errorMsg) ? '<div class="alert alert-danger" role="alert">' . $errorMsg . '</div>' : '' ?>
+            <div class="form-group">
+                <?= form_label('E-mail', 'field-email') ?>
+                <?= form_input([
+                    'name' => 'email',
+                    'class' => 'form-control' . (isset($errorField['email']) ? ' is-invalid' : ''),
+                    'placeholder' => 'Enter email',
+                    'id' => 'field-email'
+                ]) ?>
+                <?= isset($errorField) ? '<div class="invalid-feedback">' . $errorField['username'] . '</div>' : '' ?>
+            </div>
             <div class="form-group">
                 <?= form_label('Username', 'field-username') ?>
                 <?= form_input([
@@ -35,7 +45,14 @@ helper('form');
                 <?= isset($errorField) ? '<div class="invalid-feedback">' . $errorField['password'] . '</div>' : '' ?>
             </div>
             <div class="form-group">
-                <a href="<?= base_url('forgot-password'); ?>">Can't login? Click here</a>
+                <?= form_label('Password Confirmation', 'field-password-confirmation') ?>
+                <?= form_password([
+                    'name' => 'password-confirmation',
+                    'class' => 'form-control' . (isset($errorField['password-confirmation']) ? ' is-invalid' : ''),
+                    'placeholder' => 'Enter password confirmation',
+                    'id' => 'field-password-confirmation'
+                ]) ?>
+                <?= isset($errorField) ? '<div class="invalid-feedback">' . $errorField['password-confirmation'] . '</div>' : '' ?>
             </div>
             <?= form_button([
                 'class' => 'btn btn-primary',

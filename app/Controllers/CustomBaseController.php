@@ -16,36 +16,43 @@ namespace App\Controllers;
 
 use App\Controllers\Authentication\ImplAuthenticationSession;
 use CodeIgniter\Controller;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Session\Session;
+use Config\Services;
+use Psr\Log\LoggerInterface;
 
 class CustomBaseController extends Controller
 {
 
-	/**
-	 * An array of helpers to be loaded automatically upon
-	 * class instantiation. These helpers will be available
-	 * to all other controllers that extend BaseController.
-	 *
-	 * @var array
+    /**
+     * An array of helpers to be loaded automatically upon
+     * class instantiation. These helpers will be available
+     * to all other controllers that extend BaseController.
+     *
+     * @var array
 	 */
 	protected $helpers = [];
 
-	protected ImplAuthenticationSession $authentication;
+    protected ImplAuthenticationSession $authentication;
+    protected Session $session;
 
 	/**
 	 * Constructor.
 	 */
-    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
-	{
-		// Do Not Edit This Line
-		parent::initController($request, $response, $logger);
+    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
+    {
+        // Do Not Edit This Line
+        parent::initController($request, $response, $logger);
 
-		//--------------------------------------------------------------------
-		// Preload any models, libraries, etc, here.
-		//--------------------------------------------------------------------
-		// E.g.:
-		// $this->session = \Config\Services::session();
+        //--------------------------------------------------------------------
+        // Preload any models, libraries, etc, here.
+        //--------------------------------------------------------------------
+        // E.g.:
+        // $this->session = \Config\Services::session();
 
         $this->authentication = ImplAuthenticationSession::getInstance();
+        $this->session = Services::session();
 	}
 
 	protected function injectRender(array $data) : array

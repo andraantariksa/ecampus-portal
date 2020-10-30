@@ -44,13 +44,16 @@ $routes->get('/document/download/(:num)', 'DocumentController::download/$1');
 $routes->get('/login', 'LoginController::index');
 $routes->post('/login', 'LoginController::process');
 
+$routes->get('/register', 'RegisterController::index');
+$routes->post('/register', 'RegisterController::process');
+
 $routes->get('/staff/lecturer-report', 'LecturerReport::index');
 
 $routes->get('/staff/lecturer-report/upload', 'UploadReport::index');
 $routes->post('/staff/lecturer-report/upload', 'UploadReport::upload');
 
-$routes->get('/video-conference', 'VideoConference::index');
-$routes->post('/video-conference', 'VideoConference::request');
+$routes->get('/video-conference', 'VideoConferenceController::index');
+$routes->post('/video-conference', 'VideoConferenceController::request');
 // TODO
 // $routes->get('/profile/(:alphanum)');
 

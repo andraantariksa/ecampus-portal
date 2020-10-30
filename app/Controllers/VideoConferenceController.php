@@ -2,16 +2,20 @@
 namespace App\Controllers;
 
 
-class VideoConference extends CustomBaseController
+class VideoConferenceController extends CustomBaseController
 {
-
     public function index()
     {
-    	if ($this->authentication->isAuthenticated())
-        {
-            return $this->view('video-conference', ['log' => True]);
+        if (!$this->authentication->isAuthenticated()) {
+            // TODO
+            // Put into authentication
+            $this->session->setFlashdata('auth-error', [
+                'redir_to' => uri_string()
+            ]);
+            return redirect('login');
         }
-        return $this->view('video-conference', ['log' => False]);
+
+        return $this->view('video-conference');
     }
 
     public function request()

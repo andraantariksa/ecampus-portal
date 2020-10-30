@@ -2,6 +2,8 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use CodeIgniter\Validation\Validation;
+use Config\Services;
 
 class LoginController extends CustomBaseController
 {
@@ -10,24 +12,30 @@ class LoginController extends CustomBaseController
         'password' => ['label' => 'Password', 'rules' => 'required|min_length[8]']
     ];
 
-    protected \CodeIgniter\Validation\Validation $validation;
+    protected Validation $validation;
 
     protected UserModel $user_model;
 
     public function __construct()
     {
-        $this->validation = \Config\Services::validation();
+        $this->validation = Services::validation();
         $this->user_model = new UserModel();
     }
 
     public function index()
     {
-        if ($this->authentication->isAuthenticated())
-        {
+        if ($this->authentication->isAuthenticated()) {
             return redirect('/');
         }
 
-        return $this->view('login');
+        $auth_error = $this->session->getFlashdata('auth-error');
+        if (isset($auth_error)) {
+            $data['errorMsg'] = isset($auth_error['message']) ? $auth_error['message'] : 'Please login to continue';
+            $data['redir_to'] = $auth_error['redir_to'];
+        }
+
+
+        return $this->view('login', $data);
     }
 
     public function process()

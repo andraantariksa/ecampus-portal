@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use CodeIgniter\Model;
@@ -22,5 +23,29 @@ class UserModel extends Model
             'username' => $username,
             'password' => $password
         ])->getFirstRow();
+    }
+
+    public function isEmailExists(string $email): bool
+    {
+        return $this->db->table($this->table)->getWhere([
+                'email' => $email,
+            ])->getFirstRow() != null;
+    }
+
+    public function isUsernameExists(string $username): bool
+    {
+        return $this->db->table($this->table)->getWhere([
+                'username' => $username,
+            ])->getFirstRow() != null;
+    }
+
+    public function createNewUser(string $username, string $email, string $password)
+    {
+        return $this->db->table($this->table)->insert(
+            [
+                'email' => $email,
+                'password' => $password,
+                'username' => $username
+            ])->getResult();
     }
 }
